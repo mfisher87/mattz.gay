@@ -46,6 +46,11 @@
     #overlay a {
       color: white;
     }
+    @media (max-width:768px) {
+      #overlay {
+        font-size: 2rem;
+      }
+    }
 
     @keyframes flash {
       0%   { opacity: 1; }
@@ -57,8 +62,12 @@
 <body>
   <canvas id="mainCanvas"></canvas>
   <div id="overlay">
-    <span>
-      Redirizzy to <a href="https://mattz.cool">https://mattz.cool</a>...
+    <span style="text-align: center">
+      Redirizzy to
+      <br/>
+      <a href="https://mattz.cool">https://mattz.cool</a>
+      <br/>
+      ...
     </span>
   </div>
 
