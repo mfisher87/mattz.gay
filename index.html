@@ -94,13 +94,6 @@
     const canvas = document.getElementById("mainCanvas");
     const ctx = canvas.getContext("2d");
 
-    function resizeCanvas() {
-      canvas.width = canvas.offsetWidth * window.devicePixelRatio;
-      canvas.height = canvas.offsetHeight * window.devicePixelRatio;
-    }
-    window.addEventListener("resize", resizeCanvas);
-    resizeCanvas();
-
     let offset = 0;
     const scrollPixelsPerFrame = 16;
     const colors = [
@@ -111,41 +104,45 @@
       "#004cff", // Blue
       "#732982"  // Violet
     ];
-    const stripeHeight = canvas.height / colors.length;
+
+    let stripeHeight;
+    let cycleHeight;
+    let stripeCount;
+
+    function resizeCanvas() {
+      canvas.width = canvas.offsetWidth * window.devicePixelRatio;
+      canvas.height = canvas.offsetHeight * window.devicePixelRatio;
+
+      stripeHeight = (canvas.height / colors.length) * 2;
+      // + 1 extra stripe to account for the partial stripe incoming from offscreen
+      stripeCount = Math.ceil(canvas.height / stripeHeight) + 1;
+      cycleHeight = stripeHeight * colors.length;
+    }
+    window.addEventListener("resize", resizeCanvas);
+    resizeCanvas();
 
     function draw() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      colors.forEach((color, colorIndex) => {
-        const yPos = (colorIndex * stripeHeight) + offset;
-        ctx.fillStyle = color;
+      // The offscreen starting position of the first stripe
+      const startY = -(offset % stripeHeight)
+      const firstColorIndex = Math.floor(offset / stripeHeight);
 
-        // "Main" stripe
-        ctx.fillRect(
-          0,
-          yPos,
-          canvas.width,
-          stripeHeight + 1,  // 1px overdraw for subpixel gaps
-        );
+      for (let stripeIndex = 0; stripeIndex < stripeCount; stripeIndex++) {
+        const y = startY + stripeIndex * stripeHeight;
+        const colorIndex = (firstColorIndex + stripeIndex) % colors.length;
 
-        // For seamless looping, fill in the top of the loop with duplicate
-        // stripes one canvas.height above.
-        ctx.fillRect(
-          0,
-          yPos - canvas.height,
-          canvas.width,
-          stripeHeight + 1,  // 1px overdraw for subpixel gaps
-        );
-      });
+        ctx.fillStyle = colors[colorIndex];
+        ctx.fillRect(0, y, canvas.width, stripeHeight + 1);
+      }
 
       offset += scrollPixelsPerFrame;
-      if (offset >= canvas.height) {
-        offset -= canvas.height;
+      if (offset >= cycleHeight) {
+        offset -= cycleHeight;
       }
 
       requestAnimationFrame(draw);
     }
-
     draw();
   </script>
 </body>
