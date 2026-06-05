@@ -95,7 +95,6 @@
     const ctx = canvas.getContext("2d");
 
     let offset = 0;
-    const scrollPixelsPerFrame = 24;
     const colors = [
       "#e40303", // Red
       "#ff8c00", // Orange
@@ -104,10 +103,12 @@
       "#004cff", // Blue
       "#732982"  // Violet
     ];
+    const scrollPixelsPerSecond = 1200;  // per-second increment handles differences between displays
 
     let stripeHeight;
     let cycleHeight;
     let stripeCount;
+    let lastTimestamp;
 
     function resizeCanvas() {
       canvas.width = canvas.offsetWidth * window.devicePixelRatio;
@@ -121,7 +122,17 @@
     window.addEventListener("resize", resizeCanvas);
     resizeCanvas();
 
-    function draw() {
+    function draw(timestamp) {
+      if (lastTimestamp !== undefined) {
+        const elapsed = timestamp - lastTimestamp;
+
+        offset += scrollPixelsPerSecond * (elapsed / 1000);
+        if (offset >= cycleHeight) {
+          offset -= cycleHeight;
+        }
+      }
+      lastTimestamp = timestamp;
+
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
       // The offscreen starting position of the first stripe
@@ -134,11 +145,6 @@
 
         ctx.fillStyle = colors[colorIndex];
         ctx.fillRect(0, y, canvas.width, stripeHeight + 1);
-      }
-
-      offset += scrollPixelsPerFrame;
-      if (offset >= cycleHeight) {
-        offset -= cycleHeight;
       }
 
       requestAnimationFrame(draw);
