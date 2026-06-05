@@ -34,7 +34,7 @@
     // set `false` for testing during development, don't forget to set it back silly
     const doRedirect = true;  
 
-    const redirectUrl = 'https://mattz.cool';
+    const redirectUrl = "https://mattz.cool";
     const redirectDelaySeconds = 5;
 
     if (doRedirect) {
@@ -48,25 +48,25 @@
      * 🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈 *
      **************************/
 
-    const canvas = document.getElementById('mainCanvas');
-    const ctx = canvas.getContext('2d');
+    const canvas = document.getElementById("mainCanvas");
+    const ctx = canvas.getContext("2d");
 
     function resizeCanvas() {
       canvas.width = canvas.offsetWidth * window.devicePixelRatio;
       canvas.height = canvas.offsetHeight * window.devicePixelRatio;
     }
-    window.addEventListener('resize', resizeCanvas);
+    window.addEventListener("resize", resizeCanvas);
     resizeCanvas();
 
     let offset = 0;
     const scrollPixelsPerFrame = 16;
     const colors = [
-      '#e40303', // Red
-      '#ff8c00', // Orange
-      '#ffed00', // Yellow
-      '#008026', // Green
-      '#004cff', // Blue
-      '#732982'  // Violet
+      "#e40303", // Red
+      "#ff8c00", // Orange
+      "#ffed00", // Yellow
+      "#008026", // Green
+      "#004cff", // Blue
+      "#732982"  // Violet
     ];
     const stripeHeight = canvas.height / colors.length;
 
