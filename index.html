@@ -14,17 +14,53 @@
       height: 100%;
       overflow: hidden;
       background-color: #000;
+
+      /* For the overlay dood */
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
+
     canvas {
       display: block;
       width: 100%;
       height: 100%;
+    }
+
+    #overlay {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      font-family: 'Courier New', monospace;
+      font-size: 3rem;
+      font-weight: bold;
+      color: white;
+      text-shadow: 0 0 8px rgb(0,0,0), 0 2px 4px rgb(0,0,0);
+
+      animation: flash 0.5s steps(1) infinite;
+    }
+    #overlay a {
+      color: white;
+    }
+
+    @keyframes flash {
+      0%   { opacity: 1; }
+      50%  { opacity: 0; }
     }
   </style>
 </head>
 
 <body>
   <canvas id="mainCanvas"></canvas>
+  <div id="overlay">
+    <span>
+      Redirizzy to <a href="https://mattz.cool">https://mattz.cool</a>...
+    </span>
+  </div>
 
   <script>
     /**************************
@@ -32,14 +68,12 @@
      **************************/
 
     // set `false` for testing during development, don't forget to set it back silly
-    const doRedirect = true;  
-
-    const redirectUrl = "https://mattz.cool";
+    const doRedirect = true;
     const redirectDelaySeconds = 5;
 
     if (doRedirect) {
       setTimeout(() => {
-        window.location.href = redirectUrl;
+        window.location.href = "https://mattz.cool";
       }, redirectDelaySeconds * 1000);
     }
 
