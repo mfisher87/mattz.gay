@@ -71,21 +71,10 @@
     </span>
   </div>
 
+  <script src="./js/redirect.js"></script>
   <script>
-    /**************************
-     * Redirect after a delay *
-     **************************/
-
-    // set `false` for testing during development, don't forget to set it back silly
-    const doRedirect = true;
-    const redirectDelaySeconds = 5;
-
-    if (doRedirect) {
-      setTimeout(() => {
-        window.location.href = "https://mattz.cool";
-      }, redirectDelaySeconds * 1000);
-    }
-
+    // Comment to disable redirect!
+    redirectTimer({delaySeconds: 8, destination: "https://mattz.cool"});
 
     /**************************
      * 🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈 *
