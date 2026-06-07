@@ -28,8 +28,9 @@
   <script src="./js/colors.js"></script>
   <script src="./js/redirect.js"></script>
   <script>
-    // Comment to disable redirect!
-    redirectTimer({delaySeconds: 8, destination: "https://mattz.cool"});
+    if (shouldRedirect()) {
+      redirectTimer({delaySeconds: 8, destination: "https://mattz.cool"});
+    }
 
     /**************************
      * 🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈 *
