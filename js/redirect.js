@@ -1,4 +1,4 @@
-const shouldRedirect = () => {
+export const shouldRedirect = () => {
   const params = new URLSearchParams(window.location.search);
   if (params.has("redirect")) {
     console.debug("Redirect forced by 'redirect' query param!");
@@ -17,7 +17,7 @@ const shouldRedirect = () => {
   return true;
 }
 
-const redirectTimer = ({delaySeconds, destination}) => {
+export const redirectTimer = ({delaySeconds, destination}) => {
   setTimeout(() => {
     window.location.href = destination;
   }, delaySeconds * 1000);

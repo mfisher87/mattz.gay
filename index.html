@@ -25,13 +25,16 @@
     </span>
   </div>
 
-  <script src="./js/colors.js"></script>
-  <script src="./js/redirect.js"></script>
-  <script>
+  <script type="module">
+    import {shouldRedirect, redirectTimer} from "./js/redirect.js";
+
     if (shouldRedirect()) {
       redirectTimer({delaySeconds: 8, destination: "https://mattz.cool"});
     }
+  </script>
 
+  <script src="./js/colors.js"></script>
+  <script>
     /**************************
      * 🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈 *
      **************************/
