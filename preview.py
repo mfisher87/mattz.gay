@@ -27,6 +27,6 @@ if __name__ == "__main__":
                 server.serve_forever()
             except KeyboardInterrupt:
                 print("\nStopped.")
-                break
+            break
     else:
         raise SystemExit(f"No open port found in range {PORT_BOUNDS}")
