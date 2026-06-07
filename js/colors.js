@@ -1,4 +1,4 @@
-const PRIDE_COLORS = [
+export const PRIDE_COLORS = [
   "#e40303", // Red
   "#ff8c00", // Orange
   "#ffed00", // Yellow
