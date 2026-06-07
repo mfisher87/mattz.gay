@@ -18,6 +18,8 @@ export const shouldRedirect = () => {
 }
 
 export const redirectTimer = ({delaySeconds, destination}) => {
+  console.info(`Redirecting to ${destination} in ${delaySeconds} seconds!`);
+
   setTimeout(() => {
     window.location.href = destination;
   }, delaySeconds * 1000);
