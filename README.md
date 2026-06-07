@@ -2,6 +2,14 @@
 
 ## Goals
 
+### :art: Do an art
+
+:sparkles:
+
+### :brain: Learn HTML5 canvas
+
+:sparkles:
+
 ### :x: No dependencies or build toolchain
 
 The only exception is an HTTP server -- this is needed to use ES Modules.
