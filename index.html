@@ -37,30 +37,30 @@
 
   <script type="module">
     import {PRIDE_COLORS} from "./js/colors.js";
+    import {createCanvas} from "./js/canvas.js";
 
-    const canvas = document.getElementById("mainCanvas");
-    const ctx = canvas.getContext("2d");
+    const canvas = createCanvas("mainCanvas");
 
     let offset = 0;
     const scrollPixelsPerSecond = 1200;  // per-second increment handles differences between displays
 
-    let stripeHeight;
-    let cycleHeight;
-    let stripeCount;
-    let lastTimestamp;
+    let stripeHeight, cycleHeight, stripeCount, canvasWidth, canvasHeight;
+    const applyLayout = (dimensions) => {
+      canvasWidth = dimensions.width;
+      canvasHeight = dimensions.height;
 
-    function resizeCanvas() {
-      canvas.width = canvas.offsetWidth * window.devicePixelRatio;
-      canvas.height = canvas.offsetHeight * window.devicePixelRatio;
+      // The stripes are sized so that half of the colors fit on screen at any time
+      stripeHeight = (dimensions.height / PRIDE_COLORS.length) * 2;
 
-      stripeHeight = (canvas.height / PRIDE_COLORS.length) * 2;
       // + 1 extra stripe to account for the partial stripe incoming from offscreen
-      stripeCount = Math.ceil(canvas.height / stripeHeight) + 1;
+      stripeCount = Math.ceil(dimensions.height / stripeHeight) + 1;
+
       cycleHeight = stripeHeight * PRIDE_COLORS.length;
     }
-    window.addEventListener("resize", resizeCanvas);
-    resizeCanvas();
+    applyLayout(canvas.getDimensions());
+    canvas.onResize(applyLayout);
 
+    let lastTimestamp;
     function draw(timestamp) {
       if (lastTimestamp !== undefined) {
         const elapsed = timestamp - lastTimestamp;
@@ -72,7 +72,7 @@
       }
       lastTimestamp = timestamp;
 
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      canvas.context.clearRect(0, 0, canvasWidth, canvasHeight);
 
       // The offscreen starting position of the first stripe
       const startY = -(offset % stripeHeight)
@@ -82,8 +82,8 @@
         const y = startY + stripeIndex * stripeHeight;
         const colorIndex = (firstColorIndex + stripeIndex) % PRIDE_COLORS.length;
 
-        ctx.fillStyle = PRIDE_COLORS[colorIndex];
-        ctx.fillRect(0, y, canvas.width, stripeHeight + 1);
+        canvas.context.fillStyle = PRIDE_COLORS[colorIndex];
+        canvas.context.fillRect(0, y, canvasWidth, stripeHeight + 1);
       }
 
       requestAnimationFrame(draw);
