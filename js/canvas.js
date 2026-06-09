@@ -1,4 +1,15 @@
 /**
+ * type CanvasDimensions: Results of a canvas resize.
+ *
+ * Animations use this information for animation stuff.
+ *
+ * @typedef {object} CanvasDimensions
+ * @property {number} width            Canvas width in device pixels.
+ * @property {number} height           Canvas height in device pixels.
+ * @property {number} devicePixelRatio Device pixels per CSS pixel.
+ */
+
+/**
  * createCanvas: Creates a convenience object for interacting with a canvas.
  *
  * Responsible for providing a canvas 2D context object, canvas size, and
