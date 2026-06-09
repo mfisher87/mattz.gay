@@ -10,9 +10,11 @@
   <link rel="stylesheet" href="css/style.css">
   <link rel="icon" href="/favicon.svg" />
 
-  <script>
-    if (window.location.protocol === "file:") {
-      window.location.href = "yerDoingItWrong.html";
+  <script type="importmap">
+    {
+      "imports": {
+        "@/": "./js/"
+      }
     }
   </script>
 </head>
@@ -28,7 +30,7 @@
   </div>
 
   <script type="module">
-    import {shouldRedirect, redirectTimer} from "./js/redirect.js";
+    import {shouldRedirect, redirectTimer} from "@/redirect.js";
 
     if (shouldRedirect()) {
       redirectTimer({delaySeconds: 8, destination: "https://mattz.cool"});
@@ -36,7 +38,7 @@
   </script>
 
   <script type="module">
-    import {PRIDE_COLORS} from "./js/colors.js";
+    import {PRIDE_COLORS} from "@/colors.js";
 
     const canvas = document.getElementById("mainCanvas");
     const ctx = canvas.getContext("2d");
